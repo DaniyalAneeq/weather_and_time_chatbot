@@ -97,7 +97,7 @@ async def start():
     
     
     agent: Agent = Agent(
-        name="Assistant",
+        name="agent",
         instructions="""
         Your task is to assist the user with their questions and provide helpful information. if user ask for the current time in the provided city, then you should call to get_current_time function with the city name. If user asks for the current weather in the provided city, then you should call to get_current_weather function with the city name. Note that If user ask for the irrelevant question then you should respond with 'I am not sure about that. Sorry! I'm designed to fetch real-time weather updates and time around the world!'. 
         """,
