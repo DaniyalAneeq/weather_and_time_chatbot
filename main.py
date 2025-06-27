@@ -75,7 +75,8 @@ async def start():
             return f"Sorry, I don't have the current time for {city}."
     
         timezone = city_to_timezone[city_key]
-        url= f"http://api.timezonedb.com/v2.1/get-time-zone?key{timezone_api_key}&format=json&by=zone&zone={timezone}"
+        url = f"http://api.timezonedb.com/v2.1/get-time-zone?key={timezone_api_key}&format=json&by=zone&zone={timezone}"
+
     
         try:
             response = requests.get(url)
@@ -99,7 +100,10 @@ async def start():
     agent: Agent = Agent(
         name="agent",
         instructions="""
-        Your task is to assist the user with their questions and provide helpful information. if user ask for the current time in the provided city, then you should call to get_current_time function with the city name. If user asks for the current weather in the provided city, then you should call to get_current_weather function with the city name. Note that If user ask for the irrelevant question then you should respond with 'I am not sure about that. Sorry! I'm designed to fetch real-time weather updates and time around the world!'. 
+        Your task is to assist the user with their questions and provide helpful information.
+        - If the user asks for both weather and time, respond with one (e.g., weather), and politely ask if they would like the other as well.
+        - Only call one tool per message.
+        - If user asks for irrelevant questions, respond with: 'I am not sure about that. Sorry! I'm designed to fetch real-time weather updates and time around the world!'.
         """,
         model=model,
         tools=[get_current_time, get_current_weather]
